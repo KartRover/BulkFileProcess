@@ -1,0 +1,55 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+    {
+      "name": "Next.js: Chrome",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3001",
+      "webRoot": "${workspaceFolder}/frontend",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"],
+      "trace": true
+    }//,
+    // {
+    //   "name": "Next.js: Node",
+    //   "type": "node",
+    //   "request": "launch",
+    //   "runtimeExecutable": "npm",
+    //   "runtimeArgs": ["run", "dev"],
+    //   "port": 9229,
+    //   "cwd": "${workspaceFolder}/frontend",
+    //   "sourceMaps": true,
+    //   "skipFiles": ["<node_internals>/**"],
+    //   "console": "integratedTerminal",
+    //   "internalConsoleOptions": "neverOpen"
+    // },
+    // {
+    //   "name": "Node.js: Launch Program",
+    //   "type": "node",
+    //   "request": "launch",
+    //   "program": "${workspaceFolder}/backend/src/config/index.ts",
+    //   "cwd": "${workspaceFolder}/backend",
+    //   "sourceMaps": true,
+    //   "skipFiles": ["<node_internals>/**"],
+    //   "console": "integratedTerminal",
+    //   "internalConsoleOptions": "neverOpen"
+    // },
+    // {
+    //   "name": "Node.js: Attach",
+    //   "type": "node",
+    //   "request": "attach",
+    //   "port": 9229,
+    //   "address": "localhost",
+    //   "restart": true,
+    //   "sourceMaps": true,
+    //   "outFiles": ["${workspaceFolder}/backend/dist/**/*.js"],
+    //   "localRoot": "${workspaceFolder}/backend",
+    //   "remoteRoot": "/app",
+    //   "skipFiles": ["<node_internals>/**"]
+    // }
+  ]
+}

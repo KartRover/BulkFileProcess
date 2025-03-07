@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, Provider } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -11,9 +11,9 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
@@ -23,15 +23,17 @@ const Login = () => {
     }
   };
 
-  const handleOAuthLogin = async (provider) => {
-    const { error } = await supabase.auth.signInWithOAuth({
+  const handleOAuthLogin = async (provider: Provider) => {
+    const {data, error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: `${supabaseUrl}/auth/callback`,
       },
     });
     if (error) {
       setError(error.message);
+    } else {
+      window.location.href = data.url; 
     }
   };
 
@@ -54,7 +56,7 @@ const Login = () => {
         />
         <button type="submit">Login</button>
       </form>
-      <button onClick={() => handleOAuthLogin("github")}>Login with GitHub</button>
+      <button onClick={() => handleOAuthLogin('github')}>Login with GitHub</button>
     </div>
   );
 };

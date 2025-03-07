@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const backendUrl = process.env.NEXT_PUBLIC_API_URL;
+
 if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error('Missing Supabase URL or anonymous key');
 }
@@ -48,11 +50,15 @@ const Dashboard = () => {
     };
 
     fetchStats();
-    const socket = new WebSocket('ws://localhost:3000/api/live-stats');
+    
+    if (!backendUrl) {
+      setError('Missing backend URL');
+      return;
+    }
+    const socket = new WebSocket(`${backendUrl.replace(/^http/, 'ws')}/api/live-stats`);
 
     socket.onmessage = (event) => {
       const newStats = JSON.parse(event.data);
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       setStats((prevStats) => [...prevStats, newStats]);
     };
 
@@ -61,15 +67,15 @@ const Dashboard = () => {
     };
   }, [router]);
 
-  const handleFileUpload = async (event) => {
-    const file = event.target.files[0];
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
     if (!file) return;
 
     setUploading(true);
     const formData = new FormData();
     formData.append('file', file);
 
-    const response = await fetch('/api/upload-logs', {
+    const response = await fetch(`${backendUrl}/api/upload-logs`, {
       method: 'POST',
       body: formData,
     });

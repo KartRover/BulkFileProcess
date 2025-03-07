@@ -1,10 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import jwt from 'jsonwebtoken';
-import config from '../config';
+
+interface CustomNextApiRequest extends NextApiRequest {
+  user?: any;
+}
 
 const supabaseJwtSecret = process.env.SUPABASE_JWT_SECRET as string;
 
-export const verifyJwt = (req: NextApiRequest, res: NextApiResponse, next: Function) => {
+export const verifyJwt = (req: CustomNextApiRequest, res: NextApiResponse, next: Function) => {
   const token = req.headers.authorization?.split(' ')[1];
 
   if (!token) {
