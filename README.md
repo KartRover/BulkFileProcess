@@ -65,11 +65,3 @@ The application uses a WebSocket connection established at `/api/live-stats` to 
 ## Testing
 
 Unit tests are implemented for log processing logic using Jest, and integration tests are available for the `/api/upload-logs` endpoint with mocked BullMQ.
-
-## Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request for any enhancements or bug fixes.
-
-## License
-
-This project is licensed under the MIT License.
